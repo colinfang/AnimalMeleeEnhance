@@ -72,7 +72,7 @@ namespace CF_AnimalMeleeEnhance
     {
         public List<StatModifier> statOffsets = new();
 
-        public bool IsValid(Pawn pawn) => pawn.Faction is not null && pawn.Faction.IsPlayer && pawn.RaceProps.Animal && pawn.training is not null && IsTrained(parentStat, pawn.training);
+        public bool IsApplicable(Thing thing) => thing is Pawn pawn && pawn.Faction is not null && pawn.Faction.IsPlayer && pawn.RaceProps.Animal && pawn.training is not null && IsTrained(parentStat, pawn.training);
         public bool IsTrained(StatDef stat, Pawn_TrainingTracker training)
         {
             if (stat == StatDefOf.MeleeDodgeChance)
@@ -87,7 +87,7 @@ namespace CF_AnimalMeleeEnhance
         }
         public override void TransformValue(StatRequest req, ref float val)
         {
-            if (req.Thing is not Pawn pawn || !IsValid(pawn))
+            if (!IsApplicable(req.Thing))
             {
                 return;
             }
@@ -97,7 +97,7 @@ namespace CF_AnimalMeleeEnhance
         }
         public override string? ExplanationPart(StatRequest req)
         {
-            if (req.Thing is not Pawn pawn || !IsValid(pawn))
+            if (!IsApplicable(req.Thing))
             {
                 return null;
             }
