@@ -57,8 +57,8 @@ namespace CF_AnimalMeleeEnhance
 
     public class Settings : ModSettings
     {
-        public float MeleeDodgeChance;
-        public float MeleeHitChance;
+        public float MeleeDodgeChance = 10;
+        public float MeleeHitChance = 3;
         public override void ExposeData()
         {
             Scribe_Values.Look(ref MeleeDodgeChance, "MeleeDodgeChance", 10);
